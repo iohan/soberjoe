@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type ResponseData = {
@@ -6,6 +5,11 @@ type ResponseData = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ status: 'Only POST requests allowed' });
+    return;
+  }
+
   const nodemailer = require('nodemailer');
   let transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
