@@ -101,7 +101,7 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
     }
     i++;
   }
-  //console.log(events);
+
   return events;
 
   function addDaysToDate(date: Date, days: number): Date {
