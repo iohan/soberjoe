@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import React, { Dispatch, ReactNode, SetStateAction, Suspense, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { CalendarResponseType } from '../../pages/api/calendar';
-//import { getCalendarData, CalendarResponseType } from '../../pages/api/calendar';
 
 const wait = (ms: number) => new Promise(rs => setTimeout(rs, ms));
 
