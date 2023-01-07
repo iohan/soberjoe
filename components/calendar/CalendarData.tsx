@@ -49,7 +49,9 @@ export default function CalendarData(props: { setOpenSlot: Dispatch<SetStateActi
 
   useEffect(() => {
     const fetchCalendar = async () => {
+      console.log('Fetching calendar data...');
       const calendarData = await (await fetch('/api/calendar')).json();
+      console.log('Data', calendarData);
 
       setCalendarData(calendarData);
     };
