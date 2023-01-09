@@ -1,14 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { google, GoogleApis } from 'googleapis';
+import { google } from 'googleapis';
 
 let privatekey = process.env.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n'); // Removing extra slashes that are added on the string.
 let jwtClient = new google.auth.JWT(process.env.GOOGLE_CLIENT_EMAIL, '', privatekey, ['https://www.googleapis.com/auth/calendar.readonly']);
 //const cachedEventsFile = './public/calendarData/events.json'; // DEVELOPMENT
-//const calendarDataDirectory = path.join(process.cwd(), 'calendarData');
-//const cachedEventsFile = calendarDataDirectory + '/events.json'; // PRODUCTION
-const cachedEventsFile = 'https://soberjoe.vercel.app/calendarData/events.json';
+const calendarDataDirectory = path.join(process.cwd(), '/public/calendarData');
+const cachedEventsFile = calendarDataDirectory + '/events.json'; // PRODUCTION
+//const cachedEventsFile = 'https://soberjoe.vercel.app/calendarData/events.json';
 
 type Data = {
   name: string;
