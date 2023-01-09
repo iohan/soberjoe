@@ -1,14 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { google } from 'googleapis';
 
 let privatekey = process.env.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n'); // Removing extra slashes that are added on the string.
 let jwtClient = new google.auth.JWT(process.env.GOOGLE_CLIENT_EMAIL, '', privatekey, ['https://www.googleapis.com/auth/calendar.readonly']);
-//const cachedEventsFile = './public/calendarData/events.json'; // DEVELOPMENT
-//const calendarDataDirectory = path.join(process.cwd(), '/public/calendarData');
-//const cachedEventsFile = calendarDataDirectory + '/events.json'; // PRODUCTION
-//const cachedEventsFile = 'https://soberjoe.vercel.app/calendarData/events.json';
 
 type Data = {
   name: string;
@@ -42,41 +36,6 @@ const getCalendarEvents = function () {
     );
   });
 };
-
-/*const shouldRunWithCache = async () => {
-  try {
-    if (fs.existsSync('./calendarEvent.json')) {
-      const stats = await fs.promises.stat('./calendarEvent.json');
-      const cacheDate = new Date(stats.mtime.getTime() + 2 * 60 * 60 * 1000); // Adding 2 hours to the date
-      console.log(cacheDate, new Date());
-
-      if (cacheDate > new Date()) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};
-
-const getCachedData = async () => {
-  try {
-    const content = await fs.promises.readFile('./calendarEvent.json', 'utf-8');
-    const payload = JSON.parse(content);
-
-    return payload;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};*/
-
-/*const saveDataToCache = async (response: any) => {
-  await fs.promises.writeFile('./calendarEvent.json', JSON.stringify(response));
-};*/
 
 const parseCalendarEvents = async (rawCalendarData: []) => {
   console.log('Parsing events from Raw Data');
@@ -139,33 +98,17 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
 };
 
 export async function getCalendarData() {
-  /*if (await shouldRunWithCache()) {
-    console.log('Reading Calendar data from CACHE');
-
-    const cachedData = await getCachedData();
-
-    return cachedData;
-  } else {*/
   console.log('Reading calendar data from GOOGLE');
 
-  return (
-    getCalendarEvents()
-      .then(async (response: any) => {
-        return await parseCalendarEvents(response);
-      })
-      /*.then(async (response: any) => {
-      await saveDataToCache(response);
-      console.log('Returning events from GOOGLE');
+  return getCalendarEvents()
+    .then(async (response: any) => {
+      return await parseCalendarEvents(response);
+    })
+    .catch(error => {
+      console.log(error);
 
-      return response;
-    })*/
-      .catch(error => {
-        console.log(error);
-
-        return error;
-      })
-  );
-  //}
+      return error;
+    });
 }
 
 export type CalendarResponseType = {
