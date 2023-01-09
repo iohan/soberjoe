@@ -48,15 +48,24 @@ export default function CalendarData(props: { setOpenSlot: Dispatch<SetStateActi
   let { setOpenSlot } = props;
 
   useEffect(() => {
+    const sessionCalendarData = sessionStorage.getItem('calendarData');
     const fetchCalendar = async () => {
       console.log('Fetching calendar data...');
       const calendarData = await (await fetch('/api/calendar')).json();
       console.log('Data', calendarData);
       if (typeof calendarData[0]?.date === 'string') {
+        sessionStorage.setItem('calendarData', JSON.stringify(calendarData));
+        //console.log('SESSION', sessionStorage.getItem('calendarData'));
+
         setCalendarData(calendarData);
       }
     };
-    fetchCalendar();
+    if (!sessionCalendarData) {
+      fetchCalendar();
+    } else {
+      console.log('Getting data from Session');
+      setCalendarData(JSON.parse(sessionCalendarData));
+    }
   }, []);
 
   return (

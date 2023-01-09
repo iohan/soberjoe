@@ -139,31 +139,31 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
 };
 
 export async function getCalendarData() {
-  if (await shouldRunWithCache()) {
+  /*if (await shouldRunWithCache()) {
     console.log('Reading Calendar data from CACHE');
 
     const cachedData = await getCachedData();
 
     return cachedData;
-  } else {
-    console.log('Reading calendar data from GOOGLE');
+  } else {*/
+  console.log('Reading calendar data from GOOGLE');
 
-    return getCalendarEvents()
-      .then(async (response: any) => {
-        return await parseCalendarEvents(response);
-      })
-      .then(async (response: any) => {
-        await saveDataToCache(response);
-        console.log('Returning events from GOOGLE');
+  return getCalendarEvents()
+    .then(async (response: any) => {
+      return await parseCalendarEvents(response);
+    })
+    .then(async (response: any) => {
+      await saveDataToCache(response);
+      console.log('Returning events from GOOGLE');
 
-        return response;
-      })
-      .catch(error => {
-        console.log(error);
+      return response;
+    })
+    .catch(error => {
+      console.log(error);
 
-        return error;
-      });
-  }
+      return error;
+    });
+  //}
 }
 
 export type CalendarResponseType = {
