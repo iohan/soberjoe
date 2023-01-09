@@ -6,8 +6,8 @@ import { google } from 'googleapis';
 let privatekey = process.env.GOOGLE_PRIVATE_KEY?.replace(new RegExp('\\\\n', 'g'), '\n'); // Removing extra slashes that are added on the string.
 let jwtClient = new google.auth.JWT(process.env.GOOGLE_CLIENT_EMAIL, '', privatekey, ['https://www.googleapis.com/auth/calendar.readonly']);
 //const cachedEventsFile = './public/calendarData/events.json'; // DEVELOPMENT
-const calendarDataDirectory = path.join(process.cwd(), '/public/calendarData');
-const cachedEventsFile = calendarDataDirectory + '/events.json'; // PRODUCTION
+//const calendarDataDirectory = path.join(process.cwd(), '/public/calendarData');
+//const cachedEventsFile = calendarDataDirectory + '/events.json'; // PRODUCTION
 //const cachedEventsFile = 'https://soberjoe.vercel.app/calendarData/events.json';
 
 type Data = {
@@ -45,14 +45,16 @@ const getCalendarEvents = function () {
 
 const shouldRunWithCache = async () => {
   try {
-    const stats = await fs.promises.stat(cachedEventsFile);
-    const cacheDate = new Date(stats.mtime.getTime() + 2 * 60 * 60 * 1000); // Adding 2 hours to the date
-    console.log(cacheDate, new Date());
+    if (fs.existsSync('./calendarEvent.json')) {
+      const stats = await fs.promises.stat('./calendarEvent.json');
+      const cacheDate = new Date(stats.mtime.getTime() + 2 * 60 * 60 * 1000); // Adding 2 hours to the date
+      console.log(cacheDate, new Date());
 
-    if (cacheDate > new Date()) {
-      return true;
-    } else {
-      return false;
+      if (cacheDate > new Date()) {
+        return true;
+      } else {
+        return false;
+      }
     }
   } catch (err) {
     console.log(err);
@@ -62,7 +64,7 @@ const shouldRunWithCache = async () => {
 
 const getCachedData = async () => {
   try {
-    const content = await fs.promises.readFile(cachedEventsFile, 'utf-8');
+    const content = await fs.promises.readFile('./calendarEvent.json', 'utf-8');
     const payload = JSON.parse(content);
 
     return payload;
@@ -73,7 +75,7 @@ const getCachedData = async () => {
 };
 
 const saveDataToCache = async (response: any) => {
-  await fs.promises.writeFile(cachedEventsFile, JSON.stringify(response));
+  await fs.promises.writeFile('./calendarEvent.json', JSON.stringify(response));
 };
 
 const parseCalendarEvents = async (rawCalendarData: []) => {
