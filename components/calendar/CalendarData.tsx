@@ -79,9 +79,11 @@ export default function CalendarData(props: { setOpenSlot: Dispatch<SetStateActi
                   <h3 className="mb-1 text-3xl lg:mb-4 lg:text-center">{formatDate(new Date(item.date))}</h3>
                   <div className="flex justify-start gap-x-2 lg:flex-col lg:gap-y-2">
                     {item.dateEvents.map(event => {
+                      const eventTime = new Date(event.milliseconds);
+                      const localeEventTime = eventTime.toLocaleString('sv-SE', { hour: '2-digit', minute: '2-digit' });
                       return (
-                        <Link href="/boka-tatueringstid" key={event.time} onClick={() => setOpenSlot(event.milliseconds)} className="rounded-md bg-green-dark px-3 py-2 lg:px-6">
-                          kl. {event.time}
+                        <Link href="/boka-tatueringstid" key={localeEventTime} onClick={() => setOpenSlot(event.milliseconds)} className="rounded-md bg-green-dark px-3 py-2 lg:px-6">
+                          kl. {localeEventTime}
                         </Link>
                       );
                     })}
