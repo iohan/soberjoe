@@ -43,7 +43,7 @@ const getCalendarEvents = function () {
   });
 };
 
-const shouldRunWithCache = async () => {
+/*const shouldRunWithCache = async () => {
   try {
     if (fs.existsSync('./calendarEvent.json')) {
       const stats = await fs.promises.stat('./calendarEvent.json');
@@ -72,11 +72,11 @@ const getCachedData = async () => {
     console.log(err);
     return false;
   }
-};
+};*/
 
-const saveDataToCache = async (response: any) => {
+/*const saveDataToCache = async (response: any) => {
   await fs.promises.writeFile('./calendarEvent.json', JSON.stringify(response));
-};
+};*/
 
 const parseCalendarEvents = async (rawCalendarData: []) => {
   console.log('Parsing events from Raw Data');
@@ -148,21 +148,23 @@ export async function getCalendarData() {
   } else {*/
   console.log('Reading calendar data from GOOGLE');
 
-  return getCalendarEvents()
-    .then(async (response: any) => {
-      return await parseCalendarEvents(response);
-    })
-    .then(async (response: any) => {
+  return (
+    getCalendarEvents()
+      .then(async (response: any) => {
+        return await parseCalendarEvents(response);
+      })
+      /*.then(async (response: any) => {
       await saveDataToCache(response);
       console.log('Returning events from GOOGLE');
 
       return response;
-    })
-    .catch(error => {
-      console.log(error);
+    })*/
+      .catch(error => {
+        console.log(error);
 
-      return error;
-    });
+        return error;
+      })
+  );
   //}
 }
 
