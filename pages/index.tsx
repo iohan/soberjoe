@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Script from 'next/script';
 
 export default function Home() {
   return (
@@ -14,18 +13,6 @@ export default function Home() {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <div className="gtag">
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-K3QN783NQ0" strategy="afterInteractive"></Script>
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){window.dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-K3QN783NQ0');
-`}
-        </Script>
-      </div>
 
       <div className="p-5 lg:mr-[300px]">
         <div className="m-auto max-w-screen-lg">
@@ -87,7 +74,7 @@ export default function Home() {
           <section className="relative z-30">
             <h2 className="inline-block border-b-4 border-green-dark pb-1 pr-10 text-4xl uppercase">Skötselråd</h2>
             <article className="mt-4">
-              <p className="mb-4">Att ta hand om din nya tatuering är minsta lika viktigt som tatuerarens arbete för ett snyggt resultat.</p>
+              <p className="mb-4">Att ta hand om din nya tatuering är minst lika viktigt som tatuerarens arbete för ett snyggt resultat.</p>
               <p className="mb-4">En tatuering som läkt dåligt kan resultera i att den inte ser ut som den gjorde när du lämnade tatueringsstudion.</p>
             </article>
             <div className="mt-10 flex flex-col-reverse items-center gap-y-5 lg:flex-row lg:justify-end lg:gap-x-5">

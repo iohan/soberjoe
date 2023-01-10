@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useEffect, useState } from 'react';
 
+import { event } from 'nextjs-google-analytics';
+
 export type formDataType = {
   hasAge: boolean | string;
   placement: string;
@@ -59,6 +61,10 @@ export default function ContactForm({ openSlot }: ContactFormProps) {
     }).then(res => {
       setIsSubmitting(false);
       setFormSubmitted(true);
+      event('submit_form', {
+        category: 'Contact',
+        label: 'Boka tatuering',
+      });
       if (res.status === 200) {
         console.log('Response succeeded!');
       }

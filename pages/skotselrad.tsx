@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Script from 'next/script';
 import React from 'react';
 
 function skotselrad() {
@@ -15,18 +14,6 @@ function skotselrad() {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <div className="gtag">
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-K3QN783NQ0" strategy="afterInteractive"></Script>
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){window.dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-K3QN783NQ0');
-`}
-        </Script>
-      </div>
 
       <div className="p-5 lg:mr-[300px] lg:mb-10">
         <div className="m-auto max-w-screen-lg">
