@@ -43,7 +43,7 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
   const events: CalendarResponseType[] = [];
   let i = 0;
   const showNumberOfdays = 5;
-  const startFromDate = addDaysToDate(new Date(), 2); // Add days here
+  const startFromDate = addHoursToDate(new Date(), 6); // Add hours here
 
   while (i < rawCalendarData.length || events.length < showNumberOfdays) {
     if (rawCalendarData[i]) {
@@ -69,9 +69,9 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
 
   return events;
 
-  function addDaysToDate(date: Date, days: number): Date {
-    date.setDate(date.getDate() + days);
-    date.setHours(10);
+  function addHoursToDate(date: Date, hours: number): Date {
+    date.setDate(date.getDate());
+    date.setHours(date.getHours() + hours);
     date.setMinutes(0);
     date.setSeconds(0);
     date.setMilliseconds(0);
