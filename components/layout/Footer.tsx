@@ -10,13 +10,9 @@ export default function Footer() {
             <h2 className="mb-20 inline-block flex-1 border-b-4 border-green-dark pb-1 text-5xl uppercase lg:px-10">Kontakta mig</h2>
             <address className="flex w-full flex-col items-center gap-y-10 lg:flex-row lg:items-start lg:gap-x-10 lg:gap-y-0">
               <div className="text-center lg:basis-1/2 lg:text-right">
-                <p>
-                  <a href="https://goo.gl/maps/54DyjpTySGMpMy739" className="text-green-dark underline hover:text-green-medium hover:no-underline">
-                    Lost Love Tattoo
-                  </a>
-                </p>
-                <p>Drottningtan 21</p>
-                <p>803 11, Gävle</p>
+                <p>Svalan Tattoo</p>
+                <p>Norra Skeppargatan 22</p>
+                <p>Gävle</p>
               </div>
               <div className="text-center lg:basis-1/2 lg:text-left">
                 <p>Johan Östling</p>
