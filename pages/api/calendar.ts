@@ -16,7 +16,7 @@ const getCalendarEvents = function () {
         auth: jwtClient,
         calendarId: process.env.GOOGLE_CALENDAR_ID,
         timeMin: new Date().toISOString(),
-        maxResults: 20,
+        maxResults: 30,
         singleEvents: true,
         orderBy: 'startTime',
       },
@@ -42,8 +42,8 @@ const parseCalendarEvents = async (rawCalendarData: []) => {
 
   const events: CalendarResponseType[] = [];
   let i = 0;
-  const showNumberOfdays = 5;
-  const startFromDate = addHoursToDate(new Date(), 6); // Add hours here
+  const showNumberOfdays = 30;
+  const startFromDate = addHoursToDate(new Date(), 24); // Add hours here
 
   while (i < rawCalendarData.length || events.length < showNumberOfdays) {
     if (rawCalendarData[i]) {
